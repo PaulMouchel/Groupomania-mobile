@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Input, Button } from "../components";
+import { Input, Button } from "../components/basics";
 import { useCurrentUser } from '../components/context/context'
 import api from '../api/axios'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';

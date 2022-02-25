@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { Input, Button } from "../components";
+import { Input, Button } from "../components/basics";
 import { useCurrentUser } from '../components/context/context'
 import api from '../api/axios'
 
@@ -63,7 +63,7 @@ const Login : FC<IPdpPageProps> = ({ navigation }) => {
                 // localStorage.setItem("token", `Bearer ${response.data.token}`)
                 // localStorage.setItem("user", response.data.user)
                 console.log("context :", context)
-                context?.setToken(response.data.token)
+                context?.setToken(`Bearer ${response.data.token}`)
                 context?.setCurrentUser(response.data.user)
                 // router.push("/")
                 // navigation.navigate('home')
