@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 // import { DateTime } from "luxon"
 import api from '../api/axios'
-import { Avatar } from './material'
+import { Avatar } from 'react-native-elements'
 import { Link } from "@react-navigation/native"
 import Comment from "./Comment"
 import EditPost from "./EditPost"
@@ -121,13 +121,13 @@ const Post: FC<IPost> = ({ data, currentUser, deletePost, updatePost, sendSnack 
     //     }
     // }
 
-    // const deleteComment = (commentId: Number) => {
-    //     const newComments = comments.filter(comment => comment.id !== commentId)
-    //     const updatedPost:PostType = {...data}
-    //     updatedPost.comments = [...newComments]
-    //     updatePost(updatedPost)
-    //     sendSnack("Le commentaire a bien été supprimé", "success")
-    // }
+    const deleteComment = (commentId: Number) => {
+        // const newComments = comments.filter(comment => comment.id !== commentId)
+        // const updatedPost:PostType = {...data}
+        // updatedPost.comments = [...newComments]
+        // updatePost(updatedPost)
+        // sendSnack("Le commentaire a bien été supprimé", "success")
+    }
 
     // const writeComment = (comment:CommentType) => {
     //     const newComments = [...comments, comment]
@@ -137,15 +137,15 @@ const Post: FC<IPost> = ({ data, currentUser, deletePost, updatePost, sendSnack 
     //     sendSnack("Le commentaire a bien été publié", "success")
     // }
 
-    // const updateComment = (updatedComment:CommentType) => {
-    //     const index:number = comments.findIndex(comment => comment.id === updatedComment.id)
-    //     const newComments = [...comments]
-    //     newComments[index] = updatedComment 
-    //     const updatedPost:PostType = {...data}
-    //     updatedPost.comments = [...newComments]
-    //     updatePost(updatedPost)
-    //     sendSnack("Le commentaire a bien été modifié", "success")
-    // }
+    const updateComment = (updatedComment:CommentType) => {
+        // const index:number = comments.findIndex(comment => comment.id === updatedComment.id)
+        // const newComments = [...comments]
+        // newComments[index] = updatedComment 
+        // const updatedPost:PostType = {...data}
+        // updatedPost.comments = [...newComments]
+        // updatePost(updatedPost)
+        // sendSnack("Le commentaire a bien été modifié", "success")
+    }
 
     // const handleDotsMenuClose = () => {
     //     setAnchorEl(null)
@@ -192,63 +192,21 @@ const Post: FC<IPost> = ({ data, currentUser, deletePost, updatePost, sendSnack 
                 </Modal>
             } */}
             <View style={styles.header}>
-            <Avatar user={user} />
-            <Text>{user.name}</Text>
-            <Text>{createdAt}</Text>
-                {/* <View style={styles.main}> */}
-                
-                    {/* <Link href={`/users/${user.id}`}>
-                        <a>
-                            <Avatar user={user} />
-                        </a>
-                    </Link>
-                    <div>
-                        <Link href={`/users/${user.id}`}>
-                            <a>
-                                <div style={styles.sender}>
-                                    { user.name } { user.isAdmin && <Chip style={styles.admin} label="Admin" color="primary" /> }
-                                </div>
-                            </a>
-                        </Link>
-                        <div style={styles.when}>{when}</div>
-                    </div> */}
-                {/* </View> */}
-                {/* { currentUser && ( currentUser.id === user.id || currentUser.isAdmin ) && 
-                    <>
-                        <div onClick={handleDotsMenuClick} style={styles.more}>
-                            <MoreVertIcon/>
-                        </div>
-                        <StyledMenu
-                            id="demo-customized-menu"
-                            MenuListProps={{
-                            'aria-labelledby': 'demo-customized-button',
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleDotsMenuClose}
-                        >
-                            <MenuItem  onClick={openModal} disableRipple>
-                                <EditIcon/>
-                                Modifier
-                            </MenuItem>
-                            <MenuItem onClick={handleDelete} disableRipple>
-                                <DeleteIcon />
-                                Supprimer
-                            </MenuItem>
-                        </StyledMenu>
-                    </>
-                } */}
+                <Avatar source={{ uri: user.imageUrl }} size={56} rounded/>
+                <View style={styles.headerInfo}>
+                    <Text style={styles.userName}>{user.name}</Text>
+                    <Text>{createdAt}</Text>
+                </View>
             </View>
-            <View style={styles.text}>
-                <Text>
+            <View>
+                <Text style={styles.text}>
                     { text }
                 </Text>
             </View>
-            {/* { imageUrl && 
-                <View style={styles.image}>
-                    <Image src={imageUrl} layout="fill" objectFit="cover" /> 
-                </View>
-            } */}
+            { imageUrl && 
+                <Image style={styles.image} source={{ uri: imageUrl }} /> 
+            }
+
             {/* <View style={styles.action}>
                 <View style={`${styles.reaction} ${currentUserReaction === 'like' && styles.active}`} onClick={() => handleReact("like")}>
                     <ThumbUpIcon/>{ quantityOfLikes > 0 && <span style={styles.quantity}>{ quantityOfLikes }</span>}
@@ -257,24 +215,16 @@ const Post: FC<IPost> = ({ data, currentUser, deletePost, updatePost, sendSnack 
                     <ThumbDownIcon/>{ quantityOfDislikes > 0 && <span style={styles.quantity}>{ quantityOfDislikes }</span>}
                 </View>
             </View> */}
-            {/* { comments.length ? 
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                        <Text>{ comments.length } commentaire{comments.length > 1 && "s"}</Text>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <div style={styles.comments}>
-                            { currentUser && comments.map((comment, index) => 
-                                <Comment key={index} data={comment} currentUser={currentUser} deleteSelf={deleteComment} updateSelf={updateComment}/>
-                            )}
-                        </div>
-                    </AccordionDetails>
-                </Accordion> : <></>
-            } */}
+            { comments.length ?
+                <View>
+                    <Text>{ comments.length } commentaire{comments.length > 1 && "s"}</Text>
+                    <View style={styles.comments}>
+                        { currentUser && comments.map((comment, index) => 
+                            <Comment key={index} data={comment} currentUser={currentUser} deleteSelf={deleteComment} updateSelf={updateComment}/>
+                        )}
+                    </View>
+                </View> : <></>
+            }
             {/* { currentUser &&
                 <WriteComment postId={id} writeComment={writeComment} currentUser={currentUser}/>
             } */}
@@ -286,17 +236,38 @@ export default Post
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: '#FFF',
+        borderColor: '#BBB',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 5,
+        margin: 5
     },
     header: {
-
+        borderBottomColor: '#d1515a',
+        borderBottomWidth: 1,
+        marginBottom: 5,
+        paddingBottom: 5,
+        display: 'flex',
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+    headerInfo: {
+        marginLeft: 5
+    },
+    userName: {
+        fontSize: 18,
+        fontWeight: '700'
     },
     text: {
-
+        fontSize: 18
     },
     image: {
+        height: 300,
+        borderRadius: 10,
+        marginVertical: 5
+    },
+    comments: {
 
     }
 })

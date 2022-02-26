@@ -35,12 +35,7 @@ const Navbar: FC = () => {
     return (
         <View style={styles.navbar}>
             <Text>Navbar</Text>
-            {/* <Link href="/">
-                <a className={styles.logo}>
-                    <Image src={icon} width={150} height={50}></Image>
-                </a>
-            </Link>
-            <div className={styles.actions}>
+            {/* <div className={styles.actions}>
                 <Link href="/">
                     <a>
                         <div className={styles.home}>
@@ -53,7 +48,6 @@ const Navbar: FC = () => {
                         <a>
                             <div className={styles.profile}>
                                 <Avatar alt={context.currentUser.name} src={context.currentUser.imageUrl} sx={{ width: 35, height: 35 }} />
-                                <span className={styles.username}>{context.currentUser && context.currentUser.name}</span>
                             </div>
                         </a>
                     </Link>
@@ -72,6 +66,18 @@ export default Navbar
 
 const styles = StyleSheet.create({
     navbar: {
+        backgroundColor: '#122441',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 75,
+        
+
+        // padding: 1rem;
+        // position: fixed;
+        // width: 100%;
+        // z-index: 1000;
+
         // width: width, 
         // height: height,
         // borderRadius: 99

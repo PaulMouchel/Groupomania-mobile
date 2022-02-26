@@ -1,16 +1,16 @@
 import { FC, useState } from "react"
-import { StyleSheet } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 // import {DateTime} from "luxon"
-import { Avatar } from "./material"
+import { Avatar } from 'react-native-elements'
 // import MoreVertIcon from '@mui/icons-material/MoreVert'
 // import MenuItem from '@mui/material/MenuItem'
 // import DeleteIcon from '@mui/icons-material/Delete'
-import StyledMenu from "./StyledMenu"
+// import StyledMenu from "./StyledMenu"
 // import EditIcon from '@mui/icons-material/Edit'
-import CommentType from "../types/CommentType"
+// import CommentType from "../types/CommentType"
 import IComment from '../interfaces/IComment'
-import Modal from './Modal'
-import EditComment from './EditComment'
+// import Modal from './Modal'
+// import EditComment from './EditComment'
 
 import api from '../api/axios'
 
@@ -18,77 +18,69 @@ const Comment: FC<IComment> = ({ data, currentUser, deleteSelf, updateSelf }) =>
 
     const { id, user, createdAt, text } = data
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const [ modalOpen, setModalOpen ] = useState<boolean>(false)
-    const open = Boolean(anchorEl)
+    // const [ modalOpen, setModalOpen ] = useState<boolean>(false)
+    // const open = Boolean(anchorEl)
     // const when = DateTime.fromISO(createdAt).setLocale('fr').toRelative()
 
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
+    // const handleClose = () => {
+    //     setAnchorEl(null)
+    // }
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget)
-    }
+    // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorEl(event.currentTarget)
+    // }
 
-    const handleDelete = async () => {
-        try {
-            const response = await api.delete(`/comments/${id}`, {
-                headers: {
-                    "authorization": localStorage.getItem("token") || ""
-                }
-            })
-            setAnchorEl(null)
-            deleteSelf(id)
-        } catch (error:unknown) {
-            if (typeof error === "string") {
-                console.log(`Error: ${error}`)
-            } else if (error instanceof Error) {
-                console.log(`Error: ${(error as Error).message}`)
-            }
-        }
-    }
+    // const handleDelete = async () => {
+    //     try {
+    //         const response = await api.delete(`/comments/${id}`, {
+    //             headers: {
+    //                 "authorization": localStorage.getItem("token") || ""
+    //             }
+    //         })
+    //         setAnchorEl(null)
+    //         deleteSelf(id)
+    //     } catch (error:unknown) {
+    //         if (typeof error === "string") {
+    //             console.log(`Error: ${error}`)
+    //         } else if (error instanceof Error) {
+    //             console.log(`Error: ${(error as Error).message}`)
+    //         }
+    //     }
+    // }
 
-    const openModal = () => {
-        setAnchorEl(null)
-        setModalOpen(true)
-    }
+    // const openModal = () => {
+    //     setAnchorEl(null)
+    //     setModalOpen(true)
+    // }
 
-    const closeModal = () => {
-        setModalOpen(false)
-    }
+    // const closeModal = () => {
+    //     setModalOpen(false)
+    // }
 
     return (
-        <div style={styles.container}>
-            { modalOpen && 
+        <View style={styles.container}>
+            {/* { modalOpen && 
                 <Modal closeModal={closeModal}>
                     <EditComment comment={data} closeModal={closeModal} updateSelf={updateSelf}/> 
                 </Modal>
-            }
-            <div style={styles.main}>
-                <Link href={`/users/${user.id}`}>
-                    <a>
-                        <Avatar user={user} />
-                    </a>
-                </Link>
-                <div style={styles.comment}>
-                    <div style={styles.infos}>
-                        <Link href={`/users/${user.id}`}>
-                            <a>
-                                <div style={styles.sender}>{user.name}</div>
-                            </a>
-                        </Link>
-                        <div style={styles.when}>{when}</div>
-                    </div>
-                    <p style={styles.text}>
+            } */}
+            <View style={styles.main}>
+                <Avatar size={40} rounded source={{ uri: user.imageUrl}}/>
+                <View style={styles.comment}>
+                    <View style={styles.infos}>
+                        <Text style={styles.sender}>{user.name}</Text>
+                        <Text style={styles.when}>{createdAt}</Text>
+                    </View>
+                    <Text style={styles.text}>
                         { text }
-                    </p>
-                </div>
-            </div>
-            { ( currentUser.id === user.id || currentUser.isAdmin ) && 
+                    </Text>
+                </View>
+            </View>
+            {/* { ( currentUser.id === user.id || currentUser.isAdmin ) && 
                 <>
-                    <div onClick={handleClick} className={styles.more}>
+                    <View onClick={handleClick} className={styles.more}>
                         <MoreVertIcon/>
-                    </div>
+                    </View>
                     <StyledMenu
                         id="demo-customized-menu"
                         MenuListProps={{
@@ -108,8 +100,8 @@ const Comment: FC<IComment> = ({ data, currentUser, deleteSelf, updateSelf }) =>
                         </MenuItem>
                     </StyledMenu>
                 </>
-            } 
-        </div>
+            }  */}
+        </View>
     )
 }
 
@@ -117,19 +109,31 @@ export default Comment
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginVertical: 10,
+        marginHorizontal: 5,
+        paddingVertical: 5,
+        backgroundColor: '#eee',
+        borderRadius: 10
     },
-    avatar: {
-        width: 56, 
-        height: 56
+    main: {
+        display: 'flex',
+        flexDirection: 'row'
     },
-    image: {
+    comment: {
 
     },
-    actions: {
+    infos: {
 
+    },
+    sender: {
+        fontSize: 16,
+        fontWeight: '700'
+    },
+    when: {
+
+    },
+    text: {
+        fontSize: 16
     }
 })
 

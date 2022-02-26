@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { ScrollView,  View, Text, StyleSheet } from "react-native";
 import api from '../api/axios'
 import PostType from '../types/PostType'
 import UserType from '../types/UserType'
@@ -71,7 +71,7 @@ const Home : FC = () => {
     return (
         <>
             <Navbar/>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text>Home</Text>
                 <View style={styles.main}>
                     <View style={styles.content}>
@@ -82,7 +82,7 @@ const Home : FC = () => {
                     </View>
                 </View>
                 {/* <SnackMessage message={snackMessage} setMessage={setSnackMessage} severity={snackSeverity}/> */}
-            </View>
+            </ScrollView>
         </>
     )
 }
@@ -91,9 +91,9 @@ export default Home
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     main: {
 
