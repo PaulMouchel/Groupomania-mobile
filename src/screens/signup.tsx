@@ -1,9 +1,12 @@
 import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Input, Button } from "../components/basics";
 import { useCurrentUser } from '../components/context/context'
 import api from '../api/axios'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import icon from '../../public/images/icon-left-font-monochrome-black.png';
+
+const { height, width } = Dimensions.get('screen')
 
 type RootStackParamList = {
 
@@ -159,16 +162,17 @@ const SignUp : FC<IPdpPageProps> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text>Sign Up Screen</Text>
-            <Input placeholder="Name" onChangeText={(text) => setName(text)} />
+            <Image source={icon as any} style={styles.logo} />
+            <Text style={styles.title}>S'inscrire</Text>
+            <Input placeholder="Nom d'utilisateur" onChangeText={(text) => setName(text)} />
             <Input placeholder="Email" onChangeText={(text) => setEmail(text)} />
-            <Input placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)} />
-            <Input placeholder="Password-confirmation" secureTextEntry onChangeText={(text) => setPasswordConfirmation(text)} />
-            <Button title="Sign Up" onPress={handleSubmit}/>
-            <View>
-                <Text>Already Have an Account ?</Text>
+            <Input placeholder="Mot de passe" secureTextEntry onChangeText={(text) => setPassword(text)} />
+            <Input placeholder="Confirmez le mot de passe" secureTextEntry onChangeText={(text) => setPasswordConfirmation(text)} />
+            <Button title="INSCRIPTION" onPress={handleSubmit}/>
+            <View style={styles.goToLogin}>
+                <Text>Vous avez déjà un compte ?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                    <Text>Login Here</Text>
+                    <Text style={styles.link}>Connectez-vous !</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -181,6 +185,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginHorizontal: 20
+    },
+    logo: {
+        width: width / 1.1,
+        height: 150,
+        resizeMode: "contain",
+        marginBottom: 20
+    },
+    title: {
+        fontSize: 25,
+        alignSelf: 'flex-start',
+        marginBottom: 10
+    },
+    goToLogin: {
+        display: "flex",
+        flexDirection: "row"
+    },
+    link: {
+        marginLeft: 5,
+        color: '#0645AD'
     }
 })

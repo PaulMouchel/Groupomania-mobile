@@ -5,7 +5,7 @@ import PostType from '../types/PostType'
 import UserType from '../types/UserType'
 import { useCurrentUser } from '../components/context/context'
 import Post from "../components/Post";
-
+import Navbar from "../components/Navbar";
 import CreatePost from "../components/CreatePost";
 
 // import CreatePost from '../components/CreatePost'
@@ -69,18 +69,21 @@ const Home : FC = () => {
 
     console.log(posts)
     return (
-        <View style={styles.container}>
-            <Text>Home</Text>
-            <View style={styles.main}>
-                <View style={styles.content}>
-                    {/* <CreatePost posts={posts} setPosts={setPosts} currentUser={context?.currentUser || null} sendSnack={sendSnack}/> */}
-                    { posts.sort(sortPostsByDate).map((post, index) => 
-                        <Post key={JSON.stringify(post)} data={post} currentUser={context?.currentUser || null} deletePost={deletePost} updatePost={updatePost} sendSnack={sendSnack}/>
-                    )}
+        <>
+            <Navbar/>
+            <View style={styles.container}>
+                <Text>Home</Text>
+                <View style={styles.main}>
+                    <View style={styles.content}>
+                        {/* <CreatePost posts={posts} setPosts={setPosts} currentUser={context?.currentUser || null} sendSnack={sendSnack}/> */}
+                        { posts.sort(sortPostsByDate).map((post, index) => 
+                            <Post key={JSON.stringify(post)} data={post} currentUser={context?.currentUser || null} deletePost={deletePost} updatePost={updatePost} sendSnack={sendSnack}/>
+                        )}
+                    </View>
                 </View>
+                {/* <SnackMessage message={snackMessage} setMessage={setSnackMessage} severity={snackSeverity}/> */}
             </View>
-            {/* <SnackMessage message={snackMessage} setMessage={setSnackMessage} severity={snackSeverity}/> */}
-        </View>
+        </>
     )
 }
 

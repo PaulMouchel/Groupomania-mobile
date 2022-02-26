@@ -194,6 +194,7 @@ const Post: FC<IPost> = ({ data, currentUser, deletePost, updatePost, sendSnack 
             <View style={styles.header}>
             <Avatar user={user} />
             <Text>{user.name}</Text>
+            <Text>{createdAt}</Text>
                 {/* <View style={styles.main}> */}
                 
                     {/* <Link href={`/users/${user.id}`}>

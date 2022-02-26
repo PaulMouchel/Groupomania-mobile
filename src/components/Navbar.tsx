@@ -1,39 +1,41 @@
-import { useRouter } from "next/router"
+// import { useRouter } from "next/router"
 import { FC, useState, useEffect } from "react"
-import styles from '../styles/components/Navbar.module.scss'
-import Image from 'next/image'
-import icon from '../public/images/logos/icon-left-font-monochrome-white.svg'
-import FaSolidHome from './icons/FaSolidHome'
-import Link from 'next/link'
-import Avatar from '@mui/material/Avatar'
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
-import { useCurrentUser } from './context/context'
+
+// import Image from 'next/image'
+// import icon from '../public/images/logos/icon-left-font-monochrome-white.svg'
+// import FaSolidHome from './icons/FaSolidHome'
+// import Link from 'next/link'
+// import Avatar from '@mui/material/Avatar'
+// import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
+// import { useCurrentUser } from './context/context'
+import { Text, View, StyleSheet } from "react-native"
 
 
 const Navbar: FC = () => {
 
-    const router = useRouter()
-    const context = useCurrentUser()
+    // const router = useRouter()
+    // const context = useCurrentUser()
 
-    useEffect(() => {
-        const currentUserStr = localStorage.getItem("user")
-        if (currentUserStr) {
-            const currentUser = JSON.parse(currentUserStr)
-            context?.setCurrentUser(currentUser)
-        } else {
-            router.push("/login")
-        } 
-    }, [])
+    // useEffect(() => {
+    //     const currentUserStr = localStorage.getItem("user")
+    //     if (currentUserStr) {
+    //         const currentUser = JSON.parse(currentUserStr)
+    //         context?.setCurrentUser(currentUser)
+    //     } else {
+    //         router.push("/login")
+    //     } 
+    // }, [])
 
-    const handleLogout = () => {
-        localStorage.clear()
-        context?.setCurrentUser(null)
-        router.push("/login")
-    }
+    // const handleLogout = () => {
+    //     localStorage.clear()
+    //     context?.setCurrentUser(null)
+    //     router.push("/login")
+    // }
 
     return (
-        <nav className={styles.navbar}>
-            <Link href="/">
+        <View style={styles.navbar}>
+            <Text>Navbar</Text>
+            {/* <Link href="/">
                 <a className={styles.logo}>
                     <Image src={icon} width={150} height={50}></Image>
                 </a>
@@ -60,11 +62,18 @@ const Navbar: FC = () => {
                     <PowerSettingsNewIcon/>
                 </div>
                 
-            </div>
+            </div> */}
             
-        </nav>
+        </View>
     )
 }
 
 export default Navbar
-  
+
+const styles = StyleSheet.create({
+    navbar: {
+        // width: width, 
+        // height: height,
+        // borderRadius: 99
+    },
+})

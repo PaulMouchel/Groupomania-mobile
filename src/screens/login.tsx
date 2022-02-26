@@ -1,9 +1,12 @@
 import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { Input, Button } from "../components/basics";
 import { useCurrentUser } from '../components/context/context'
 import api from '../api/axios'
+import icon from '../../public/images/icon-left-font-monochrome-black.png';
+
+const { height, width } = Dimensions.get('screen')
 
 type RootStackParamList = {
 
@@ -85,14 +88,15 @@ const Login : FC<IPdpPageProps> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text>Login Screen</Text>
+            <Image source={icon as any} style={styles.logo} />
+            <Text style={styles.title}>Se connecter</Text>
             <Input placeholder="Email" onChangeText={(text) => setEmail(text)} />
-            <Input placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)} />
-            <Button title="Log In" onPress={handleSubmit}/>
-            <View>
-                <Text>Don't Have an Account ?</Text>
+            <Input placeholder="Mot de passe" secureTextEntry onChangeText={(text) => setPassword(text)} />
+            <Button title="CONNEXION" onPress={handleSubmit}/>
+            <View style={styles.goToSignUp}>
+                <Text>Pas encre de compte ?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('signup')}>
-                    <Text>Signup Here</Text>
+                    <Text style={styles.link}>Inscrivez-vous !</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -105,6 +109,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginHorizontal: 20
+    },
+    logo: {
+        width: width / 1.1,
+        height: 150,
+        resizeMode: "contain",
+        marginBottom: 20
+    },
+    title: {
+        fontSize: 25,
+        alignSelf: 'flex-start',
+        marginBottom: 10
+    },
+    goToSignUp: {
+        display: "flex",
+        flexDirection: "row"
+    },
+    link: {
+        marginLeft: 5,
+        color: '#0645AD'
     }
 })
