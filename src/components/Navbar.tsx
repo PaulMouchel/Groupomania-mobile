@@ -9,13 +9,17 @@ import { FC, useState, useEffect } from "react"
 // import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 // import { useCurrentUser } from './context/context'
 import { Text, View, StyleSheet } from "react-native"
-
+import { Icon, Avatar } from 'react-native-elements';
+import { useCurrentUser } from "./context/context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { AppStackParams } from "../navigation/appStack";
 
 const Navbar: FC = () => {
 
-    // const router = useRouter()
-    // const context = useCurrentUser()
-
+    const context = useCurrentUser()
+    const navigation = useNavigation<NativeStackNavigationProp<AppStackParams>>()
+    
     // useEffect(() => {
     //     const currentUserStr = localStorage.getItem("user")
     //     if (currentUserStr) {
@@ -26,38 +30,50 @@ const Navbar: FC = () => {
     //     } 
     // }, [])
 
-    // const handleLogout = () => {
+
+
+    const handleLogout = ():void => {
     //     localStorage.clear()
-    //     context?.setCurrentUser(null)
+        context?.setCurrentUser(null)
     //     router.push("/login")
-    // }
+    }
+
+    const goToUserPage = (id:number):void => {
+        navigation.navigate('profile', { id })
+    }
 
     return (
         <View style={styles.navbar}>
-            <Text>Navbar</Text>
-            {/* <div className={styles.actions}>
-                <Link href="/">
-                    <a>
-                        <div className={styles.home}>
-                            <FaSolidHome/>
-                        </div>
-                    </a>
-                </Link>
-                { context && context.currentUser && 
-                    <Link href={`/users/${context.currentUser.id}`}>
-                        <a>
-                            <div className={styles.profile}>
-                                <Avatar alt={context.currentUser.name} src={context.currentUser.imageUrl} sx={{ width: 35, height: 35 }} />
-                            </div>
-                        </a>
-                    </Link>
-                }
-                <div className={styles.logout} onClick={handleLogout}>
-                    <PowerSettingsNewIcon/>
-                </div>
-                
-            </div> */}
-            
+            <Icon
+            name='home'
+            type='font-awesome'
+            color='#fff'
+            size={34}
+            onPress={() => navigation.navigate('home')} />
+
+            { context?.currentUser ?
+                context.currentUser.imageUrl ? 
+                    <Avatar 
+                    size={64} 
+                    rounded 
+                    source={{ uri: context.currentUser.imageUrl}} /> 
+                : 
+                    <Icon
+                    name='user-circle'
+                    type='font-awesome'
+                    color='#fff'
+                    size={34}
+                    onPress={() => goToUserPage(context?.currentUser?.id || 1)} />
+            :
+                <></>
+            }
+
+            <Icon
+            name='power-off'
+            type='font-awesome'
+            color='#fff'
+            size={34}
+            onPress={handleLogout} />            
         </View>
     )
 }
@@ -68,10 +84,10 @@ const styles = StyleSheet.create({
     navbar: {
         backgroundColor: '#122441',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         height: 75,
-        
+        flexDirection: "row"
 
         // padding: 1rem;
         // position: fixed;

@@ -1,10 +1,14 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { AppStackParams } from "../navigation/appStack";
 
-const Profile : FC = () => {
+type Props = NativeStackScreenProps<AppStackParams, 'profile'>
+
+const Profile : FC<Props> = ({ route }) => {
     return (
-        <View style={styles.constainer}>
-            <Text>Profile Screen</Text>
+        <View style={styles.container}>
+            <Text>Profile Screen {route.params.id}</Text>
         </View>
     )
 }
@@ -12,7 +16,7 @@ const Profile : FC = () => {
 export default Profile
 
 const styles = StyleSheet.create({
-    constainer: {
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

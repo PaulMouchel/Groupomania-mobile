@@ -3,7 +3,7 @@ import { Dimensions, View, Text, StyleSheet, TouchableOpacity, Image } from "rea
 import { Input, Button } from "../components/basics";
 import { useCurrentUser } from '../components/context/context'
 import api from '../api/axios'
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import icon from '../../public/images/icon-left-font-monochrome-black.png';
 
 const { height, width } = Dimensions.get('screen')
@@ -20,12 +20,12 @@ type RootStackParamList = {
  
     login: undefined; // a screen that we are navigating to 
  // in the current screen, that we don't pass any props to it
- home: undefined
+    home: undefined
  };
 
 interface IPdpPageProps {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Pdp'>;
- }
+}
 
 const SignUp : FC<IPdpPageProps> = ({ navigation }) => {
     const [ name, setName ] = useState<string>("")
@@ -43,15 +43,15 @@ const SignUp : FC<IPdpPageProps> = ({ navigation }) => {
     const [ error, setError ] = useState<string>("")
     const context = useCurrentUser()
 
-    const isValidName = (value:string) => {
+    const isValidName = (value:string):boolean => {
         return value.length >= 3 && value.length < 100
     }
 
-    const isValidEmail = (value:string) => {
+    const isValidEmail = (value:string):boolean => {
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
     }
 
-    const isValidPassword = (value:string) => {
+    const isValidPassword = (value:string):boolean => {
         return value.length >= 8
     }
 

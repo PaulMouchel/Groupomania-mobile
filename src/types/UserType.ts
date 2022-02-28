@@ -1,7 +1,7 @@
 import PostType from "./PostType";
 
 type UserType = {
-    id: Number
+    id: number
     name: string
     email: string
     password: string

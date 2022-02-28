@@ -6,9 +6,9 @@ const { Navigator, Screen } = createNativeStackNavigator()
 
 const AuthStack : FC = () => {
     return (
-        <Navigator screenOptions={{ headerShown: false }}>
-            <Screen name="signup" component={SignUp} />
+        <Navigator screenOptions={{ headerShown: false }} initialRouteName='login'>
             <Screen name="login" component={Login} />
+            <Screen name="signup" component={SignUp} />
         </Navigator>
     )
 }

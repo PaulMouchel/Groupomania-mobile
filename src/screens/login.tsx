@@ -65,9 +65,9 @@ const Login : FC<IPdpPageProps> = ({ navigation }) => {
             if (!response.data.error) {
                 // localStorage.setItem("token", `Bearer ${response.data.token}`)
                 // localStorage.setItem("user", response.data.user)
-                console.log("context :", context)
                 context?.setToken(`Bearer ${response.data.token}`)
-                context?.setCurrentUser(response.data.user)
+                // console.log("data.user :",JSON.parse(response.data.user))
+                context?.setCurrentUser(JSON.parse(response.data.user))
                 // router.push("/")
                 // navigation.navigate('home')
             } else {

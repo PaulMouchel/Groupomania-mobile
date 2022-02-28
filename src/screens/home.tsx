@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { ScrollView,  View, Text, StyleSheet } from "react-native";
+import { ScrollView,  View, StyleSheet } from "react-native";
 import api from '../api/axios'
 import PostType from '../types/PostType'
 import UserType from '../types/UserType'
@@ -7,15 +7,16 @@ import { useCurrentUser } from '../components/context/context'
 import Post from "../components/Post";
 import Navbar from "../components/Navbar";
 import CreatePost from "../components/CreatePost";
-
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppStackParams } from '../navigation/appStack'
 // import CreatePost from '../components/CreatePost'
 // import Post from '../components/Post'
 // import SnackMessage from "../components/SnackMessage"
+interface IPdpPageProps {
+    navigation: NativeStackNavigationProp<AppStackParams, 'home'>;
+}
 
-
-
-
-const Home : FC = () => {
+const Home : FC<IPdpPageProps> = () => {
 
     const [ posts , setPosts ] = useState<PostType[]>([])
     // const [ currentUser , setCurrentUser ] = useLocalStorage<UserType | null>("user", null)
@@ -67,12 +68,11 @@ const Home : FC = () => {
         setSnackMessage(message)
     }
 
-    console.log(posts)
     return (
         <>
             <Navbar/>
             <ScrollView style={styles.container}>
-                <Text>Home</Text>
+                <CreatePost posts={posts} setPosts={setPosts} currentUser={context?.currentUser || null} sendSnack={() => {}}/>
                 <View style={styles.main}>
                     <View style={styles.content}>
                         {/* <CreatePost posts={posts} setPosts={setPosts} currentUser={context?.currentUser || null} sendSnack={sendSnack}/> */}
