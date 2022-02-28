@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import styles from '../styles/components/UserSettings.module.scss'
 import Button from '@mui/material/Button'
-import Modal from './Modal'
+import Modal from './FullScreenModal'
 import DeleteProfile from './DeleteProfile'
 import IUserSettings from '../interfaces/IUserSettings'
 import { DateTime } from "luxon"
